@@ -33,8 +33,6 @@ body {
 }
 
 .horse-img {
-    width: 100px;
-    height: 100px;
     object-fit: cover;
 }
 
@@ -62,6 +60,7 @@ body {
     justify-content: center;
     align-items: center;
     height: 60vh; /* Viewport height for full-screen center alignment */
+    text-align: center;
 }
 
 .container {
@@ -130,5 +129,11 @@ body {
 }
 
 .center-button {
+    text-align: center;
+
+}
+
+.dice-container{
+    font-size: 44px;
     text-align: center;
 }
