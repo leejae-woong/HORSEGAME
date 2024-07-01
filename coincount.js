@@ -27,14 +27,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     let firstPlacePayout;
     let secondPlacePayout;
     const horseImages = [
-        'IMG/1.png',
-        'IMG/2.png',
-        'IMG/3.png',
-        'IMG/4.png',
-        'IMG/5.png',
-        'IMG/6.png',
-        'IMG/7.png',
-        'IMG/8.png'
+        'IMG/1.gif',
+        'IMG/2.gif',
+        'IMG/3.gif',
+        'IMG/4.gif',
+        'IMG/5.gif',
+        'IMG/6.gif',
+        'IMG/7.gif',
+        'IMG/8.gif'
     ];
 
     function setupPlayerNames() {
