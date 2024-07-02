@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
         const playerInput = document.createElement('input');
         playerInput.type = 'text';
         playerInput.id = `playerName${currentPlayerIndex + 1}`;
-        playerInput.placeholder = `플레이어 ${currentPlayerIndex + 1} 이름`;
+        playerInput.placeholder = `플레이어 ${currentPlayerIndex + 1}`;
         playerInput.classList.add('block', 'w-1/2', 'p-2', 'border', 'border-gray-300', 'rounded-md', 'mb-2', 'mx-auto');
         playerNamesDiv.appendChild(playerInput);
 
@@ -141,9 +141,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 `5등말의 번호는 ${rankings[4]}입니다.`,
                 `1,2,3등 말 번호의 합이 4,5,6,7,8등 말 번호의 합보다 ${sum123 > rankings.slice(3).reduce((a, b) => a + b) ? '큽니다' : sum123 < rankings.slice(3).reduce((a, b) => a + b) ? '작습니다' : '같습니다'}.`,
                 `2등말의 번호는 4보다 ${rankings[1] > 4 ? '큽니다' : '작습니다'}.`,
-                `7번말보다 1번말의 순위가 ${rankings[0] < rankings[6] ? '높다' : '낮다'}.`,
-                `8번말보다 2번말의 순위가 ${rankings[1] < rankings[7] ? '높다' : '낮다'}.`,
-                `6번말보다 3번말의 순위가 ${rankings[2] < rankings[5] ? '높다' : '낮다'}.`,
+                `7번말보다 1번말의 순위가 ${rankings[0] > rankings[6] ? '높다' : '낮다'}.`,
+                `8번말보다 2번말의 순위가 ${rankings[1] > rankings[7] ? '높다' : '낮다'}.`,
+                `6번말보다 3번말의 순위가 ${rankings[2] > rankings[5] ? '높다' : '낮다'}.`,
             ];
 
             while (hints.length < playerCount && additionalHints.length > 0) {
@@ -179,20 +179,51 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         const horseElement = document.createElement('div');
         horseElement.innerHTML = `
-            <img src="${horseImages[currentHorseIndex]}" alt="말 이미지" class="inline-block mr-2 horse-img">
-            <div class="dice-container">주사위 굴리는 중...</div>`;
+    <img src="${horseImages[currentHorseIndex]}" alt="말 이미지" class="inline-block mr-2 horse-img">
+    <div class="dice-container">
+        <div class="dice">
+            <div class="face front">0</div>
+            <div class="face back">1</div>
+            <div class="face right">2</div>
+            <div class="face left">3</div>
+            <div class="face top">2</div>
+            <div class="face bottom">1</div>
+        </div>
+    </div>`;
+
+
         horsesContainer.appendChild(horseElement);
 
         const diceContainer = horseElement.querySelector('.dice-container');
-        diceContainer.classList.add('dice-rolling');
+        diceContainer.classList.add('add-keyframe');
 
         setTimeout(() => {
-            diceContainer.classList.remove('dice-rolling');
-
-            const moveDistance = Math.floor(Math.random() * 3 + 1);
+            diceContainer.classList.remove('add-keyframe');
+            const moveDistance = Math.floor(Math.random() * 4);
             horsePositions[currentHorseIndex] += moveDistance;
-            diceContainer.textContent = `${moveDistance} 칸 이동`;
-
+        
+            // 주사위의 각 면에 숫자 업데이트 및 애니메이션의 최종 결과 설정
+            const diceFaces = diceContainer.querySelectorAll('.face');
+            diceFaces.forEach(face => {
+                face.textContent = ''; // 초기화
+            });
+        
+            // 이동 칸수에 해당하는 면에 숫자 표시
+            switch (moveDistance) {
+                case 0:
+                    diceContainer.querySelector('.face.front').textContent = '0';
+                    break;
+                case 1:
+                    diceContainer.querySelector('.face.front').textContent = '1';
+                    break;
+                case 2:
+                    diceContainer.querySelector('.face.front').textContent = '2';
+                    break;
+                case 3:
+                    diceContainer.querySelector('.face.front').textContent = '3';
+                    break;
+            }
+        
             const nextButton = document.createElement('button');
             nextButton.classList.add('mt-4', 'p-2', 'bg-blue-500', 'text-white', 'rounded-md');
             nextButton.textContent = '다음';
@@ -201,7 +232,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
                 showNextHorse();
             });
             horsesContainer.appendChild(nextButton);
-        }, 1000);
+        }, 2000); // 시간을 2000ms로 설정
+        
+        
     }
 
     function nextRound() {
@@ -263,7 +296,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     function updateRoundDisplay() {
         const roundDisplay = document.getElementById('roundDisplay');
-        roundDisplay.textContent = `현재 라운드: ${currentRound}`;
+        roundDisplay.textContent = `라운드: ${currentRound}`;
     }
 
     function showBettingCalculator() {
