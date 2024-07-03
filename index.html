@@ -6,30 +6,6 @@
     <title>경마 게임 및 베팅칩 계산기</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <style>
-        .button-custom {
-            background: linear-gradient(to bottom, #295d02 0%, #1e4e00 100%);
-            border: 2px solid #766a3e;
-            border-radius: 10px;
-            color: #d8e08b;
-            font-size: 18px;
-            font-weight: bold;
-            padding: 10px 20px;
-            text-shadow: 1px 1px 2px #000;
-            box-shadow: 0 4px #999;
-            transition: all 0.2s ease-in-out;
-        }
-
-        .button-custom:hover {
-            background: linear-gradient(to bottom, #1e4e00 0%, #295d02 100%);
-            box-shadow: 0 6px #666;
-        }
-
-        .button-custom:active {
-            box-shadow: 0 2px #666;
-            transform: translateY(2px);
-        }
-    </style>
 </head>
 <body>
     <div class="overlay"></div>
@@ -69,15 +45,44 @@
             <div id="horses" class="grid grid-cols-1 gap-2 items-center justify-center h-screen"></div>
             <button id="nextRound" class="mt-4 w-full p-2 bg-green-500 text-white rounded-md button-custom">다음 라운드</button>
         </div>
+        <!-- Result Section -->
         <div id="resultSection" class="hidden text-center">
             <h2 class="text-2xl font-bold mb-2">최종 순위</h2>
-            <div class="flex">
-                <ul id="finalRankings" class="list-disc pl-5 w-1/2"></ul>
-                <ul id="playerHints" class="list-disc pl-5 w-1/2"></ul>
+            <div class="podium">
+                <div class="podium-item">
+                    <img id="firstPlaceImage" alt="First Place">
+                    <span id="firstPlaceName"></span>
+                    <span id="firstPlacePoints"></span>
+                </div>
+                <div class="podium-item">
+                    <img id="secondPlaceImage" alt="Second Place">
+                    <span id="secondPlaceName"></span>
+                    <span id="secondPlacePoints"></span>
+                </div>
+                <div class="podium-item">
+                    <img id="thirdPlaceImage" alt="Third Place">
+                    <span id="thirdPlaceName"></span>
+                    <span id="thirdPlacePoints"></span>
+                </div>
             </div>
-            <button id="restartGame" class="mt-4 w-full p-2 bg-blue-500 text-white rounded-md button-custom">처음으로 돌아가기</button>
-            <button id="calculateBetsButton" class="mt-4 w-full p-2 bg-green-500 text-white rounded-md button-custom">베팅칩 계산</button>
+            <div class="leaderboard">
+                <h2 class="leaderboard-title">전체순위</h2>
+                <ul id="finalRankings"></ul>
+            </div>
+            <div class="buttons">
+                <button id="hintDetails" class="button-custom">힌트 확인</button>
+                <button id="restartGame" class="button-custom">처음으로 돌아가기</button>
+                <button id="calculateBetsButton" class="button-custom">베팅칩 계산</button>
+            </div>
         </div>
+
+        <!-- Hint Details Section -->
+        <div id="hintDetailsSection" class="hidden mb-4 text-center">
+            <button id="backToResults" class="p-2 bg-gray-500 text-white rounded-md back-button">뒤로가기</button>
+            <h2 class="text-2xl font-bold mb-2">힌트 확인</h2>
+            <ul id="detailedHints" class="list-disc pl-5"></ul>
+        </div>
+
         <div id="bettingCalculator" class="hidden mb-4 text-center">
             <h2 class="text-2xl font-bold mb-2">배당율 계산</h2>
             <div class="mb-4">
