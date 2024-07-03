@@ -10,6 +10,8 @@ document.addEventListener('DOMContentLoaded', (event) => {
     document.getElementById('calculateBetsButton').addEventListener('click', showBettingCalculator);
     document.getElementById('calculatePayouts').addEventListener('click', calculatePayouts);
     document.getElementById('calculateChips').addEventListener('click', calculateFinalChips);
+    document.getElementById('hintDetails').addEventListener('click', showHintDetails);
+    document.getElementById('backToResults').addEventListener('click', backToResults);
 
     let playerCount = 6;
     let horseRankings = [];
@@ -191,7 +193,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
         </div>
     </div>`;
 
-
         horsesContainer.appendChild(horseElement);
 
         const diceContainer = horseElement.querySelector('.dice-container');
@@ -201,13 +202,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
             diceContainer.classList.remove('add-keyframe');
             const moveDistance = Math.floor(Math.random() * 4);
             horsePositions[currentHorseIndex] += moveDistance;
-        
+
             // 주사위의 각 면에 숫자 업데이트 및 애니메이션의 최종 결과 설정
             const diceFaces = diceContainer.querySelectorAll('.face');
             diceFaces.forEach(face => {
                 face.textContent = ''; // 초기화
             });
-        
+
             // 이동 칸수에 해당하는 면에 숫자 표시
             switch (moveDistance) {
                 case 0:
@@ -223,18 +224,16 @@ document.addEventListener('DOMContentLoaded', (event) => {
                     diceContainer.querySelector('.face.front').textContent = '3';
                     break;
             }
-        
+
             const nextButton = document.createElement('button');
             nextButton.classList.add('mt-4', 'p-2', 'bg-blue-500', 'text-white', 'rounded-md');
-            nextButton.textContent = '다음';
+            nextButton.textContent = '확인';
             nextButton.addEventListener('click', () => {
                 currentHorseIndex++;
                 showNextHorse();
             });
             horsesContainer.appendChild(nextButton);
         }, 2000); // 시간을 2000ms로 설정
-        
-        
     }
 
     function nextRound() {
@@ -259,20 +258,35 @@ document.addEventListener('DOMContentLoaded', (event) => {
         document.getElementById('gameBoard').classList.add('hidden');
         document.getElementById('resultSection').classList.remove('hidden');
 
+        const sortedHorses = horsePositions.map((pos, idx) => ({ idx: idx + 1, pos }))
+            .sort((a, b) => b.pos - a.pos);
+
+        const firstPlace = sortedHorses[0];
+        const secondPlace = sortedHorses[1];
+        const thirdPlace = sortedHorses[2];
+
+        document.getElementById('firstPlaceImage').src = horseImages[firstPlace.idx - 1];
+        document.getElementById('firstPlaceName').textContent = `말 ${firstPlace.idx}`;
+        document.getElementById('firstPlacePoints').textContent = `1등`;
+       
+
+        document.getElementById('secondPlaceImage').src = horseImages[secondPlace.idx - 1];
+        document.getElementById('secondPlaceName').textContent = `말 ${secondPlace.idx}`;
+        document.getElementById('secondPlacePoints').textContent = `2등`;
+
+        document.getElementById('thirdPlaceImage').src = horseImages[thirdPlace.idx - 1];
+        document.getElementById('thirdPlaceName').textContent = `말 ${thirdPlace.idx}`;
+        document.getElementById('thirdPlacePoints').textContent = `3등`;
+
         const rankingsList = document.getElementById('finalRankings');
         rankingsList.innerHTML = '';
-        finalRankings.forEach((entry, index) => {
+        sortedHorses.forEach((entry, index) => {
             const listItem = document.createElement('li');
-            listItem.textContent = `말 ${entry}: ${index + 1}등`;
+            listItem.innerHTML = `
+                <img src="${horseImages[entry.idx - 1]}" alt="말 ${entry.idx}">
+                <span>말 ${entry.idx}</span>
+            `;
             rankingsList.appendChild(listItem);
-        });
-
-        const playerHintsList = document.getElementById('playerHints');
-        playerHintsList.innerHTML = '';
-        players.forEach(player => {
-            const playerHintsItem = document.createElement('li');
-            playerHintsItem.textContent = `${player.name}: ${player.hints.join(', ')}`;
-            playerHintsList.appendChild(playerHintsItem);
         });
     }
 
@@ -385,5 +399,22 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
         document.getElementById('bettingInput').classList.add('hidden');
         document.getElementById('bettingResults').classList.remove('hidden');
+    }
+
+    function showHintDetails() {
+        const detailedHintsList = document.getElementById('detailedHints');
+        detailedHintsList.innerHTML = '';
+        players.forEach(player => {
+            const hintItem = document.createElement('li');
+            hintItem.textContent = `${player.name}: ${player.hints.join(', ')}`;
+            detailedHintsList.appendChild(hintItem);
+        });
+        document.getElementById('resultSection').classList.add('hidden');
+        document.getElementById('hintDetailsSection').classList.remove('hidden');
+    }
+
+    function backToResults() {
+        document.getElementById('hintDetailsSection').classList.add('hidden');
+        document.getElementById('resultSection').classList.remove('hidden');
     }
 });
