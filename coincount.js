@@ -361,14 +361,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
             secondPlaceBetInput.dataset.horseIndex = 1;
             playerBetContainer.appendChild(secondPlaceBetInput);
 
-            const remainingChipsInput = document.createElement('input');
-            remainingChipsInput.type = 'number';
-            remainingChipsInput.placeholder = '남은 베팅 칩 개수';
-            remainingChipsInput.classList.add('block', 'w-full', 'p-2', 'border', 'border-gray-300', 'rounded-md', 'mb-2');
-            remainingChipsInput.dataset.playerIndex = index;
-            remainingChipsInput.dataset.horseIndex = 2;
-            playerBetContainer.appendChild(remainingChipsInput);
-
             bettingInputsContainer.appendChild(playerBetContainer);
         });
 
@@ -382,14 +374,13 @@ document.addEventListener('DOMContentLoaded', (event) => {
         players.forEach((player, index) => {
             const firstPlaceBet = parseFloat(document.querySelector(`input[data-player-index="${index}"][data-horse-index="0"]`).value);
             const secondPlaceBet = parseFloat(document.querySelector(`input[data-player-index="${index}"][data-horse-index="1"]`).value);
-            const remainingChips = parseFloat(document.querySelector(`input[data-player-index="${index}"][data-horse-index="2"]`).value);
 
-            if (isNaN(firstPlaceBet) || isNaN(secondPlaceBet) || isNaN(remainingChips)) {
+            if (isNaN(firstPlaceBet) || isNaN(secondPlaceBet)) {
                 alert('모든 값을 올바르게 입력해주세요.');
                 return;
             }
 
-            const finalChips = (firstPlaceBet * firstPlacePayout) + (secondPlaceBet * secondPlacePayout) + remainingChips;
+            const finalChips = (firstPlaceBet * firstPlacePayout) + (secondPlaceBet * secondPlacePayout);
 
             const resultItem = document.createElement('div');
             resultItem.classList.add('mb-2');
