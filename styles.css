@@ -46,54 +46,12 @@ body {
     animation: fadeInContainer 1s ease-in-out forwards 1s;
 }
 
-.flex-container {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    width: 100%;
-    height: 100%;
-}
-
-.flex-item {
-    flex: 1;
-    margin: 10px;
-    text-align: center;
-}
-
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
 }
 
 @keyframes fadeInContainer {
-    0% { opacity: 0; transform: translateY(20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-.title-custom {
-    font-family: 'SF_HambakSnow', sans-serif;
-    font-size: 3rem;
-    font-weight: bold;
-    color: #fff;
-    text-shadow: 2px 2px 4px #000;
-    letter-spacing: 2px;
-    margin-bottom: 20px;
-    opacity: 0;
-    animation: fadeInTitle 1s ease-in-out forwards 2s;
-}
-
-@keyframes fadeInTitle {
-    0% { opacity: 0; transform: translateY(-20px); }
-    100% { opacity: 1; transform: translateY(0); }
-}
-
-#playerSetup {
-    opacity: 0;
-    animation: fadeInContent 1s ease-in-out forwards 3s;
-}
-
-@keyframes fadeInContent {
     0% { opacity: 0; transform: translateY(20px); }
     100% { opacity: 1; transform: translateY(0); }
 }
@@ -158,7 +116,6 @@ body {
     justify-content: center;
     align-items: center;
 }
-
 
 .horse-container {
     display: flex;
@@ -246,9 +203,9 @@ body {
 
 .dice-container {
     font-size: 44px;
-   
     justify-content: center;
 }
+
 .dice-container {
     width: 60px;
     height: 60px;
@@ -302,13 +259,14 @@ body {
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
-    color: #fff;
+    color: #d8e08b;
     cursor: pointer;
 }
 
 .button:hover {
     background: #e25d27;
 }
+
 .horse-dice-container {
     display: flex;
     justify-content: center; /* 수평 중앙 정렬 */
@@ -345,11 +303,11 @@ body {
     color: black;
 }
 
-.face.front  { transform: rotateY(  0deg) translateZ(50px); }
+.face.front  { transform: rotateY(0deg) translateZ(50px); }
 .face.back   { transform: rotateY(180deg) translateZ(50px); }
-.face.right  { transform: rotateY( 90deg) translateZ(50px); }
+.face.right  { transform: rotateY(90deg) translateZ(50px); }
 .face.left   { transform: rotateY(-90deg) translateZ(50px); }
-.face.top    { transform: rotateX( 90deg) translateZ(50px); }
+.face.top    { transform: rotateX(90deg) translateZ(50px); }
 .face.bottom { transform: rotateX(-90deg) translateZ(50px); }
 
 @keyframes rollDice {
@@ -360,4 +318,102 @@ body {
 .horse-img {
     display: inline-block;
     vertical-align: middle; /* 수직 정렬 */
+}
+
+#hintDetailsSection {
+    position: relative;
+}
+
+.leaderboard-title {
+    font-size: 1.75rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.podium {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    margin-bottom: 30px;
+}
+
+.podium-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+    background-color: #fff;
+    color: #333;
+    padding: 10px;
+    margin: 0 10px;
+    border-radius: 10px 10px 0 0;
+    width: 100px;
+    height: 200px;
+}
+
+.podium-item img {
+    width: 150px;
+    height: 150px;
+
+}
+.leaderboard {
+    background-color: #fff;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.leaderboard ul {
+    list-style: none;
+    padding: 0;
+}
+
+.leaderboard li {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.leaderboard img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.leaderboard span {
+    font-size: 1.2rem;
+}
+
+.buttons {
+    position: fixed;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.button-custom {
+    background: linear-gradient(to bottom, #295d02 0%, #1e4e00 100%);
+    border: 2px solid #766a3e;
+    border-radius: 10px;
+    color: #d8e08b;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 8px 16px;
+    text-shadow: 1px 1px 2px #000;
+    box-shadow: 0 4px #999;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+.button-custom:hover {
+    background: linear-gradient(to bottom, #1e4e00 0%, #295d02 100%);
+    box-shadow: 0 6px #666;
+}
+
+.button-custom:active {
+    box-shadow: 0 2px #666;
+    transform: translateY(2px);
 }
